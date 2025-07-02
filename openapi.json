@@ -5,8 +5,14 @@
     "version": "1.0.0",
     "description": "GPTs Action용 약 복용 확인 API 명세"
   },
+  "servers": [
+    {
+      "url": "https://n8n.agentflowlabs.com",
+      "description": "AgentFlow n8n Webhook Server"
+    }
+  ],
   "paths": {
-    "/check-medication": {
+    "/webhook/medication-reminder": {
       "post": {
         "summary": "Check medication schedule for a senior user",
         "operationId": "checkMedication",
