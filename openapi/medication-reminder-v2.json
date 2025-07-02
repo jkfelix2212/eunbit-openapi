@@ -22,8 +22,8 @@
             "application/json": {
               "schema": {
                 "oneOf": [
-                  { "$ref": "#/$defs/CheckMedication" },
-                  { "$ref": "#/$defs/ReportTaken" }
+                  { "$ref": "#/components/schemas/CheckMedication" },
+                  { "$ref": "#/components/schemas/ReportTaken" }
                 ]
               }
             }
@@ -37,54 +37,56 @@
       }
     }
   },
-  "$defs": {
-    "CheckMedication": {
-      "type": "object",
-      "properties": {
-        "action": {
-          "type": "string",
-          "const": "check"
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "user_name": { "type": "string" },
-            "birthdate": { "type": "string", "format": "date" },
-            "time_period": {
-              "type": "string",
-              "enum": ["아침", "점심", "저녁", "현재"]
-            }
+  "components": {
+    "schemas": {
+      "CheckMedication": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "const": "check"
           },
-          "required": ["user_name", "birthdate"]
-        }
-      },
-      "required": ["action", "data"]
-    },
-    "ReportTaken": {
-      "type": "object",
-      "properties": {
-        "action": {
-          "type": "string",
-          "const": "report_taken"
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "user_name": { "type": "string" },
-            "birthdate": { "type": "string", "format": "date" },
-            "time_period": {
-              "type": "string",
-              "enum": ["아침", "점심", "저녁"]
+          "data": {
+            "type": "object",
+            "properties": {
+              "user_name": { "type": "string" },
+              "birthdate": { "type": "string", "format": "date" },
+              "time_period": {
+                "type": "string",
+                "enum": ["아침", "점심", "저녁", "현재"]
+              }
             },
-            "medications": {
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          },
-          "required": ["user_name", "birthdate", "time_period", "medications"]
-        }
+            "required": ["user_name", "birthdate"]
+          }
+        },
+        "required": ["action", "data"]
       },
-      "required": ["action", "data"]
+      "ReportTaken": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "const": "report_taken"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "user_name": { "type": "string" },
+              "birthdate": { "type": "string", "format": "date" },
+              "time_period": {
+                "type": "string",
+                "enum": ["아침", "점심", "저녁"]
+              },
+              "medications": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            },
+            "required": ["user_name", "birthdate", "time_period", "medications"]
+          }
+        },
+        "required": ["action", "data"]
+      }
     }
   }
 }
