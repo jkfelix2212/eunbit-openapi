@@ -1,1 +1,89 @@
-
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Eunbit Church Medication API",
+    "version": "2.0.0",
+    "description": "은빛교회 시니어 약 복용 확인 및 기록 API입니다. 각 기능은 별도의 endpoint로 나뉘어 있어 GPTs에서 동작합니다."
+  },
+  "servers": [
+    {
+      "url": "https://n8n.agentflowlabs.com"
+    }
+  ],
+  "paths": {
+    "/webhook/medication-check": {
+      "post": {
+        "summary": "복용할 약 조회",
+        "operationId": "checkMedication",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckMedication"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "성공적으로 복용할 약 목록을 반환합니다."
+          }
+        }
+      }
+    },
+    "/webhook/medication-report": {
+      "post": {
+        "summary": "약 복용 기록 제출",
+        "operationId": "reportTaken",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportTaken"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "복용 기록 저장 성공"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CheckMedication": {
+        "type": "object",
+        "properties": {
+          "user_name": { "type": "string" },
+          "birthdate": { "type": "string", "format": "date" },
+          "time_period": {
+            "type": "string",
+            "enum": ["아침", "점심", "저녁", "현재"]
+          }
+        },
+        "required": ["user_name", "birthdate"]
+      },
+      "ReportTaken": {
+        "type": "object",
+        "properties": {
+          "user_name": { "type": "string" },
+          "birthdate": { "type": "string", "format": "date" },
+          "time_period": {
+            "type": "string",
+            "enum": ["아침", "점심", "저녁"]
+          },
+          "medications": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["user_name", "birthdate", "time_period", "medications"]
+      }
+    }
+  }
+}
