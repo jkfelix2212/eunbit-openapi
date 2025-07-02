@@ -1,0 +1,78 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Eunbit Medication API",
+    "version": "1.0.0",
+    "description": "GPTs Action용 약 복용 확인 API 명세"
+  },
+  "paths": {
+    "/check-medication": {
+      "post": {
+        "summary": "Check medication schedule for a senior user",
+        "operationId": "checkMedication",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckMedicationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Medication info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckMedicationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CheckMedicationRequest": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "example": "check_medication"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "user_name": { "type": "string" },
+              "birthdate": { "type": "string", "format": "date" },
+              "time_period": { "type": "string" }
+            },
+            "required": ["user_name", "birthdate", "time_period"]
+          }
+        },
+        "required": ["action", "data"]
+      },
+      "CheckMedicationResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string" },
+          "message": { "type": "string" },
+          "tts_text": { "type": "string" },
+          "medications": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "user_id": { "type": "string" },
+          "position": { "type": "string" },
+          "birthdate": { "type": "string" },
+          "time_period": { "type": "string" },
+          "telegram_id": { "type": "string" }
+        }
+      }
+    }
+  }
+}
