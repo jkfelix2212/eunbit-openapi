@@ -5,6 +5,11 @@
     "version": "2.0.0",
     "description": "이 API는 은빛교회 시니어 사역용 약 복용 확인 및 기록 기능을 지원합니다."
   },
+  "servers": [
+    {
+      "url": "https://n8n.agentflowlabs.com"
+    }
+  ],
   "paths": {
     "/webhook/medication-reminder": {
       "post": {
